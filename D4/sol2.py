@@ -2,11 +2,12 @@ file = open("input.txt", "r")
 lines = file.readlines()
 winnings = []
 cards = []
-numberOfCards = {}
+numberOfCards = [1 for i in range(len(lines))]
 totCards = 0
 
-# input parsing and initialization
+
 for i in range(len(lines)):
+    # input parsing and initialization
     lines[i] = lines[i].split(":")[1]
     winnings.append(lines[i].split("|")[0].split(" "))
     while "" in winnings[i]:
@@ -15,10 +16,8 @@ for i in range(len(lines)):
     cards[i][len(cards[i]) - 1] = cards[i][len(cards[i]) - 1][:-1]
     while "" in cards[i]:
         cards[i].remove("")
-    numberOfCards[i] = 1
 
-#solve
-for i in range(len(lines)):
+    #solve
     matches = 0
     for number in cards[i]:
         if number in winnings[i]:
