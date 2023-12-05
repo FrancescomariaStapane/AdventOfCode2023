@@ -5,7 +5,7 @@ cards = []
 
 score = 0
 for i in range(len(lines)):
-    # parso input
+    # input parsing
     lines[i] = lines[i].split(":")[1]
     winnings.append(lines[i].split("|")[0].split(" "))
     while "" in winnings[i]:
@@ -15,7 +15,7 @@ for i in range(len(lines)):
     while "" in cards[i]:
         cards[i].remove("")
 
-    # calcolo punteggio
+    # solve
     matches = 0
     for number in cards[i]:
         if number in winnings[i]:
