@@ -1,4 +1,5 @@
 file = open("input.txt", "r")
+# file = open("example.txt", "r")
 lines = file.readlines()
 seeds = [int(i) for i in lines[0][7:-1].split(" ")]
 locations = []
@@ -82,40 +83,38 @@ def solve():
         i = inizio
 
         while i < row[0] + row[2]:
-            if i > location:
-                previous = location +1
-                i -= 1
-            else:
-                previous = i
-            location = previous
-            if location == 79874950:
-                pass
+
+
+            # previous=i
             # flag=False
             # if lastNumberVisited == 86:
             #     flag = True
-            for j in range(len(maps) - 1, -1, -1):
-                previous = findPrevious(previous, maps[j])
+            if(location==79874951):
+                print("sas")
+            seed=seedFromLocation(location)
 
             # if flag:
             #     print(previous)
             for j in range(0, len(seeds), 2):
-                if seeds[j] <= previous <= seeds[j] + seeds[j + 1]:
+                if seeds[j] <= seed <= seeds[j] + seeds[j + 1]:
                     print(location)
                     trovato = True
                     break
             if trovato:
                 break
             i += 1
+            location += 1
         if trovato:
             break
 
 
 solve()
-# print(seedFromLocation(82))
-# print(seedFromLocation(43))
-# print(seedFromLocation(86))
 print(seedFromLocation(79874952))
 print(seedFromLocation(79874951))
+# print(seedFromLocation(43))
+# print(seedFromLocation(86))
+# print(seedFromLocation(79874952))
+# print(seedFromLocation(79874951))
 
 # print(locationForSeed(79))
 # print(locationForSeed(14))
