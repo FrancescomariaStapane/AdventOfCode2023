@@ -9,16 +9,16 @@ cards = {
     "A": 13,
     "K": 12,
     "Q": 11,
-    "J": 10,
-    "T": 9,
-    "9": 8,
-    "8": 7,
-    "7": 6,
-    "6": 5,
-    "5": 4,
-    "4": 3,
-    "3": 2,
-    "2": 1
+    "T": 10,
+    "9": 9,
+    "8": 8,
+    "7": 7,
+    "6": 6,
+    "5": 5,
+    "4": 4,
+    "3": 3,
+    "2": 2,
+    "J": 1
 }
 
 
@@ -39,6 +39,15 @@ def getType(hand):
     return 2  # one pair
 
 
+def getnewType(hand):
+    if "J" not in hand:
+        return getType(hand)
+    ranks = []
+    for card in cards.keys():
+        ranks.append(getType(hand.replace("J", card)))
+    return max(ranks)
+
+
 for line in lines:
     line = line.replace("\n", "")
     hands_and_bids[line[:5]] = line[6:]
@@ -47,9 +56,9 @@ hands = [h for h in hands_and_bids.keys()]
 
 
 def compare(hand1, hand2):
-    if getType(hand1) < getType(hand2):
+    if getnewType(hand1) < getnewType(hand2):
         return -1
-    if getType(hand1) > getType(hand2):
+    if getnewType(hand1) > getnewType(hand2):
         return 1
     i = 0
     while hand1[i] == hand2[i]:
@@ -64,5 +73,4 @@ win = 0
 for i in range(len(orderedHands)):
     win += int(hands_and_bids[orderedHands[i]]) * (i + 1)
 
-print(getType("22JJ2"))
 print(win)
