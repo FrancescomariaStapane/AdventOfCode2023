@@ -28,6 +28,13 @@ for i in range(len(linescp[0])):
     product *= (getSol(time, distance))
 print("part 1: ", product)
 
-newTime=float(re.sub(" ","",lines[0]))
-newDistance=float(re.sub(" ","",lines[1]))
-print("part 2: ",getSol(newTime,newDistance))
+newTime = float(re.sub(" ", "", lines[0]))
+newDistance = float(re.sub(" ", "", lines[1]))
+print("part 2: ", getSol(newTime, newDistance))
+
+#v(t-v)>d
+#vt-v^2>d
+#v^2 -vt <-d
+#v^2 -vt +d < 0
+#x1,2=(-b+- sqrt(b^2 - 4ac))/2
+#v1,2=(t+- sqrt(t^2-4td))/2
