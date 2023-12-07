@@ -4,10 +4,12 @@ import re
 file = open("input.txt", "r")
 lines = file.readlines()
 linescp = []
+linescp2 = []
 for i in range(2):
-    lines[i] = lines[i].split(":")[1]
-    lines[i] = re.sub(" +", " ", lines[i])[1:-1]
-    linescp.append(lines[i].split(" "))
+    # lines[i] = lines[i].split(":")[1]
+    # lines[i] = re.sub(" +", " ", lines[i])[1:-1]
+    # linescp.append(lines[i].split(" "))
+    linescp.append(re.sub(" +", " ", lines[i].split(":")[1])[1:-1].split(" "))
     # print(linescp[i])
 races = []
 product = 1
