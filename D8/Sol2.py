@@ -36,6 +36,10 @@ for i in range(len(paths)):
             if currentNode in visited[i].keys():
                 break
             visited[i][currentNode] = counterInstructions
+            if nodes[currentNode[:-1]]["R"]==nodes[currentNode[:-1]]["L"]:
+                visited[i][currentNode[:-1]+"R"] = counterInstructions
+                visited[i][currentNode[:-1]+"L"] = counterInstructions
+
             currentNode = nodes[currentNode[:-1]][instructions[j]]+ instructions[(j + 1)%len(instructions)]
             counterInstructions += 1
         counterPeriods += 1
