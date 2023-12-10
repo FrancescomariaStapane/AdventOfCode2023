@@ -92,15 +92,22 @@ startCoordinates = [findStart(matrix, "S")[0], findStart(matrix, "S")[1]]
 startPossibilities = []
 appendDirections(startPossibilities, startCoordinates)
 
+path=[]
 for direction in startPossibilities:
+    path = []
     depth = 0
     coordinates = startCoordinates
     copyMatrix = []
     for row in matrix:
-        copyMatrix.append(row)
+        rowcopy = []
+        for c in row:
+            rowcopy.append(c)
+        copyMatrix.append(rowcopy)
     while coordinates != startCoordinates or depth == 0:
-        copyMatrix[startCoordinates[0]][startCoordinates[1]] = "S"
+        if depth == 2:
+            copyMatrix[startCoordinates[0]][startCoordinates[1]] = "S"
         copyCoordinates = coordinates
+        path.append(copyCoordinates)
         coordinates = getNextCoordinate(coordinates, copyMatrix)
         copyMatrix[copyCoordinates[0]][copyCoordinates[1]] = "."
 
@@ -110,5 +117,51 @@ for direction in startPossibilities:
 
     if coordinates == startCoordinates:
         print(depth / 2)
+# path.pop()
 
 
+internals = []
+previousPosition = [-1, -1]
+
+
+def areComplementary(corner1, corner2):
+    return (corner1 == "F" and corner2 == "L") or (corner1 == "7" and corner2 == "J") or (
+            corner1 == "L" and corner2 == "F") or (corner1 == "J" and corner2 == "7")
+
+
+def isCorner(corner):
+    return corner in ["J", "F", "L", "7"]
+
+
+path.append(path[0])
+lastCorner = ""
+counter=0
+while path[0][1]==path[-1][1]:
+    path.remove(path[0])
+for position in path:
+    if position == [1, 4]:
+        print("stop")
+    # if position[1] != previousPosition[1]:
+    pipe = matrix[position[0]][position[1]]
+    if areComplementary(pipe, lastCorner):
+        for i in range(position[0], len(matrix)):
+            subPosition = [i, position[1]]
+            if subPosition in internals:
+                internals.remove(subPosition)
+            elif subPosition not in path:
+                internals.append(subPosition)
+    elif isCorner(pipe):
+        lastCorner = pipe
+    if previousPosition[1] != position[1]:
+        for i in range(position[0], len(matrix)):
+            subPosition = [i, position[1]]
+            if subPosition in internals:
+                internals.remove(subPosition)
+            elif subPosition not in path:
+                internals.append(subPosition)
+
+    previousPosition = position
+    counter+=1
+    if counter%200==0:
+        print(counter)
+print(len(internals))
