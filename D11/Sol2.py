@@ -12,26 +12,17 @@ for line in lines:
     space.append(chars)
 
 i = 0
-scarto=1000
-
+blankRows=[]
+blankColums=[]
 while i < len(space):
     if "#" not in space[i]:
-        for k in range(scarto):
-            copy=space[i].copy()
-            space.insert(i, copy)
-            i += 1
+        blankRows.append(i)
     i += 1
 
 i = 0
-
 while i < len(space[0]):
     if not any(space[j][i] == "#" for j in range(len(space))):
-        for j in range(len(space)):
-            for k in range(scarto):
-                space[j].insert(i, ".")
-        for k in range(scarto):
-            i += 1
-
+        blankColums.append(i)
     i += 1
 xs = []
 ys = []
@@ -42,11 +33,26 @@ for i in range(len(space)):
             ys.append(j)
 xs.sort()
 ys.sort()
+scarto=999999
+copyxs=xs.copy()
+copyys=ys.copy()
+for pos in blankRows:
+    for i in range(len(xs)):
+        if copyxs[i]>pos:
+            xs[i]+=scarto
+
+for pos in blankColums:
+    for i in range(len(ys)):
+        if copyys[i]>pos:
+            ys[i]+=scarto
 
 sum_x=0
 sum_y=0
 # xs=[2,3,4,5]
 # ys=[1,3,4,5]
+
+
+
 for i in range(len(xs)):
     sum_x+=xs[i]*i
     sum_y+=ys[i]*i
